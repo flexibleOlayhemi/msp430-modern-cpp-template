@@ -10,12 +10,15 @@
 
 using namespace Hardware;
 
+//Defining LED using the template
+using RedLed = Led<BIT0>;
+
 int main(){
     WDTCTL = WDTPW | WDTHOLD;
 
 
     System::initLowPower();
-    Led::init();
+    RedLed::init();
 
     TA0CCTL0 = CCIE;
 
@@ -31,7 +34,7 @@ int main(){
 
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void Timer_A_ISR(void){
-    Led::toggle();
+    RedLed::toggle();  //zero-RAM overhead
 }
 
 
