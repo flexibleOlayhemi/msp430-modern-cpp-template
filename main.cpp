@@ -5,20 +5,18 @@
  *      Author: User
  */
 
-#include "Light.hpp"
+#include "HardwareConfig.hpp"
 #include "System.hpp"
 
-using namespace Hardware;
+using namespace Config;
 
-//Defining LED using the template
-using RedLed = Led<BIT0>;
 
 int main(){
     WDTCTL = WDTPW | WDTHOLD;
 
 
-    System::initLowPower();
-    RedLed::init();
+    Hardware::System::initLowPower();
+    StatusLed::init();
 
     TA0CCTL0 = CCIE;
 
@@ -34,7 +32,7 @@ int main(){
 
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void Timer_A_ISR(void){
-    RedLed::toggle();  //zero-RAM overhead
+    StatusLed::toggle();  //zero-RAM overhead
 }
 
 
