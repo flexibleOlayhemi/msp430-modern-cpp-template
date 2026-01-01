@@ -5,17 +5,20 @@
  *      Author: User
  */
 
-#include "Light.hpp"
+#include "HardwareConfig.hpp"
 #include "System.hpp"
 
-using namespace Hardware;
+using namespace Config;
+
 
 int main(){
     WDTCTL = WDTPW | WDTHOLD;
 
 
-    System::initLowPower();
-    Led::init();
+    Hardware::System::initLowPower();
+    StatusLed::init();
+    ErrorLed::init();
+    UserBtn::init();
 
     TA0CCTL0 = CCIE;
 
@@ -31,7 +34,15 @@ int main(){
 
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void Timer_A_ISR(void){
-    Led::toggle();
+    StatusLed::toggle();  //zero-RAM overhead
+}
+
+#pragma vector = PORT1_VECTOR
+__interrupt void Port_1_ISR(void){
+    if (UserBtn::isSource()){
+        ErrorLed::toggle();
+        UserBtn::clearFlag();
+    }
 }
 
 

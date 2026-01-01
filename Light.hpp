@@ -12,19 +12,33 @@
 
 namespace Hardware{
 
-class Led{
-public:
-    static constexpr uint8_t LED = BIT0;
+    template<typename PortType, PortType OutReg, PortType DirReg,uint8_t BitMask>
+    class Led{
+    public:
+        //static constexpr uint8_t LED = BIT0;
 
-    static  void init(){
-        P1DIR  |= LED;
-        P1OUT &= ~LED;
-    }
+        static  void init(){
+            *DirReg  |= BitMask;
+            *OutReg &= ~BitMask;
+        }
 
-    static void toggle(){
-        P1OUT ^= LED;
-    }
-};
+        static void toggle(){
+            *OutReg ^= BitMask;
+        }
+
+        static void on(){
+            *OutReg |= BitMask;
+        }
+
+        static void off(){
+            *OutReg &= ~BitMask;
+        }
+
+        static void set(bool state){
+            if(state) *OutReg |= BitMask;
+            else *OutReg &= ~BitMask;
+        }
+    };
 
 }
 
