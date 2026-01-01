@@ -16,7 +16,7 @@ int main(){
 
 
     Hardware::System::initLowPower();
-    StatusLed::init();
+    RedLed::init();
 
     TA0CCTL0 = CCIE;
 
@@ -32,7 +32,7 @@ int main(){
 
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void Timer_A_ISR(void){
-    StatusLed::toggle();  //zero-RAM overhead
+    RedLed::toggle();  //zero-RAM overhead
 }
 
 
