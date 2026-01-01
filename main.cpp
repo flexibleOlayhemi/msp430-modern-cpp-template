@@ -16,7 +16,9 @@ int main(){
 
 
     Hardware::System::initLowPower();
-    RedLed::init();
+    StatusLed::init();
+    ErrorLed::init();
+    UserBtn::init();
 
     TA0CCTL0 = CCIE;
 
@@ -32,7 +34,15 @@ int main(){
 
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void Timer_A_ISR(void){
-    RedLed::toggle();  //zero-RAM overhead
+    StatusLed::toggle();  //zero-RAM overhead
+}
+
+#pragma vector = PORT1_VECTOR
+__interrupt void Port_1_ISR(void){
+    if (UserBtn::isSource()){
+        ErrorLed::toggle();
+        UserBtn::clearFlag();
+    }
 }
 
 
