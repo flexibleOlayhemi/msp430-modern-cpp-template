@@ -16,9 +16,12 @@ int main(){
 
 
     Hardware::System::initLowPower();
+    Console::init();
     StatusLed::init();
     ErrorLed::init();
     UserBtn::init();
+
+    Console::print("MSP430 Ready. Press Button...\r\n");
 
     TA0CCTL0 = CCIE;
 
@@ -41,6 +44,7 @@ __interrupt void Timer_A_ISR(void){
 __interrupt void Port_1_ISR(void){
     if (UserBtn::isSource()){
         ErrorLed::toggle();
+        Console::println("Button Pressed - LED Toggled!");
         UserBtn::clearFlag();
     }
 }
