@@ -8,6 +8,7 @@
 #pragma once
 #include "Light.hpp"
 #include "Button.hpp"
+#include "Uart.hpp"
 
 namespace Config{
 
@@ -20,4 +21,5 @@ namespace Config{
 
     using UserBtn = Hardware::Button<RegPtr,&P1IN,&P1DIR,&P1REN,&P1OUT,
             &P1IE,&P1IES,&P1IFG,BIT3>;
+    using Console = Hardware::Uart;
 }
