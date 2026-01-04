@@ -15,7 +15,7 @@ namespace Config{
     using RegPtr = volatile uint8_t*;
 
     using StatusLed = Hardware::Led<RegPtr,&P1OUT,&P1DIR,BIT0>;
-    using ErrorLed = Hardware::Led<RegPtr,&P1OUT,&P1DIR,BIT1>;
+    using ErrorLed = Hardware::Led<RegPtr,&P1OUT,&P1DIR,BIT3>;
 
     //using StatusLed = Hardware::Led<Pins::RedLed>;
 
