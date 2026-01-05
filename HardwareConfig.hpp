@@ -9,6 +9,7 @@
 #include "Light.hpp"
 #include "Button.hpp"
 #include "Uart.hpp"
+#include "Timer.hpp"
 
 namespace Config{
 
@@ -20,6 +21,7 @@ namespace Config{
     //using StatusLed = Hardware::Led<Pins::RedLed>;
 
     using UserBtn = Hardware::Button<RegPtr,&P1IN,&P1DIR,&P1REN,&P1OUT,
-            &P1IE,&P1IES,&P1IFG,BIT3>;
+            &P1IE,&P1IES,&P1IFG,BIT4>;
     using Console = Hardware::Uart;
+    using SystemTimer = Hardware::TimerA<Hardware::TimerClock::SMCLK>;
 }
