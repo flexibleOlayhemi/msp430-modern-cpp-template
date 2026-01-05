@@ -21,17 +21,14 @@ int main(){
     ErrorLed::init();
     UserBtn::init();
 
+    SystemTimer::init(50000);
+
     Console::print("MSP430 Ready. Press Button...\r\n");
 
-    TA0CCTL0 = CCIE;
-
-    TA0CCR0 =  50000;
-
-    TA0CTL = TASSEL_2 + MC_1 + ID_3;
 
     __bis_SR_register(LPM0_bits + GIE);
 
-    return 0;
+
 }
 
 
